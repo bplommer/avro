@@ -760,7 +760,7 @@ public abstract class Schema extends JsonProperties implements Serializable {
     public void addAlias(String name, String space) {
       if (aliases == null)
         this.aliases = new LinkedHashSet<>();
-      if (space == null)
+      if (space == null || "".equals(space))
         space = this.name.space;
       aliases.add(new Name(name, space));
     }
@@ -1608,7 +1608,7 @@ public abstract class Schema extends JsonProperties implements Serializable {
       if (type.equals("record") || type.equals("error") || type.equals("enum") || type.equals("fixed")) {
         String space = getOptionalText(schema, "namespace");
         doc = getOptionalText(schema, "doc");
-        if (space == null)
+        if (space == null || "".equals(space))
           space = names.space();
         name = new Name(getRequiredText(schema, "name", "No name in schema"), space);
         if (name.space != null) { // set default namespace
